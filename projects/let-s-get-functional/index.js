@@ -20,18 +20,35 @@
  */
 
 var maleCount = function(array) {
-  
+  const males = _.filter(array, function(customer) {
+    return customer.gender === 'male'
+  })
+  return males.length
 };
 
-var femaleCount;
+var femaleCount = function(array) {
+    const females = _.reduce(array, function(customer) {
+        if (customer.gender === 'female') {
+            
+        }
+    },0)
+    return females
+};
 
-var oldestCustomer;
+var oldestCustomer = function(array) {
+
+};
 
 var youngestCustomer;
 
 var averageBalance;
 
-var firstLetterCount;
+var firstLetterCount = function(array, letter) {
+    const count = _.filter(array, function(customer) {
+        return customer.name[0].toLowerCase() === letter.toLowerCase()
+    })
+    return count.length
+};
 
 var friendFirstLetterCount;
 
