@@ -27,21 +27,40 @@ var maleCount = function(array) {
 };
 
 var femaleCount = function(array) {
-    const females = _.reduce(array, function(customer) {
-        if (customer.gender === 'female') {
-            
-        }
-    },0)
-    return females
+    return _.filter(array, function(customer){
+        return customer.gender === 'female'
+    }).length
 };
 
 var oldestCustomer = function(array) {
-
+    var oldest = _.reduce(array, function(acc, customer) {
+        if (customer.age < acc.age) {
+            return acc
+        } else {
+            return customer
+        }
+    }).name
+    return oldest
 };
 
-var youngestCustomer;
+var youngestCustomer = function(array) {
+    var youngest = _.reduce(array, function(acc, customer) {
+        if (customer.age > acc.age) {
+            return acc
+        } else {
+            return customer
+        }
+    }).name
+    return youngest
+};;
 
-var averageBalance;
+var averageBalance = function(array) {
+    var balance = _.reduce(array, function(acc, customer) {
+        acc += Number(customer.balance.replace(/[$,]/g, ''))
+        return acc
+    }, 0)
+    return balance / array.length
+};
 
 var firstLetterCount = function(array, letter) {
     const count = _.filter(array, function(customer) {
@@ -50,13 +69,60 @@ var firstLetterCount = function(array, letter) {
     return count.length
 };
 
-var friendFirstLetterCount;
+var friendFirstLetterCount = function(array, customer, letter) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].name === customer) {
+            var friendo = _.filter(array[i].friends, function(friend) {
+                return friend.name[0].toLowerCase() === letter.toLowerCase()
+            })
+            return friendo.length
+        }
+    }
+};;
 
-var friendsCount;
+var friendsCount = function (array, name) {
+    var output = []
+    for (let i = 0; i < array.length; i++) {
+        var friendo= _.filter(array[i].friends, function(friend) {
+            return friend.name === name
+        }) 
+        if (friendo.length > 0) {
+            output.push(array[i].name)
+        }
+    }
+    return output
+};
 
-var topThreeTags;
+var topThreeTags = function(array) {
+    var count = _.reduce(array, function(acc, current) {
+        var tag = current.tags
+        for (let i = 0; i < tag.length; i++) {
+            let tags = tag[i]
+            if(acc[tags]) {
+                acc[tags]++
+            } else {
+                acc[tags] = 1
+            }
+        }
+        return acc
+    }, {})
+var order = Object.keys(count).sort(function (first, second) {
+    return count[second] - count[first]
+})
+return order.slice(0, 3)
+};
 
-var genderCount;
+var genderCount = function(array) {
+    return _.reduce(array, function(acc, current) {
+        var gender = current.gender
+        if (acc[gender]) {
+            acc[gender]++
+        } else {
+            acc[gender] = 1
+        }
+        return acc
+    }, {})
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
